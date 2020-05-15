@@ -3,6 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import * as filters from "./utils/filters";
+
+//reset
+import "./assets/css/reset.css";
+import "./assets/css/common.css";
+
+//vant UI
 import { Button } from "vant";
 
 Vue.use(Button);
@@ -16,42 +22,15 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key]);
 });
 
-//fastclick
-import FastClick from "fastclick";
-/**
- * 解决移动端300ms 延迟（此方法修复ISO input无法正常获焦问题）
- * @param {EventTarget|Element} targetElement
- */
-/* eslint-disable */
-FastClick.prototype.focus = function(targetElement) {
-  var length;
-  // Issue #160: on iOS 7, some input elements (e.g. date datetime month) throw a vague TypeError on setSelectionRange. These elements don't have an integer value for the selectionStart and selectionEnd properties, but unfortunately that can't be used for detection because accessing the properties also throws a TypeError. Just check the type instead. Filed as Apple bug #15122724.
-  if (
-    deviceIsIOS &&
-    targetElement.setSelectionRange &&
-    targetElement.type.indexOf("date") !== 0 &&
-    targetElement.type !== "time" &&
-    targetElement.type !== "month" &&
-    targetElement.type !== "email"
-  ) {
-    length = targetElement.value.length;
-    targetElement.focus(); // 加入这一句话
-    targetElement.setSelectionRange(length, length);
-  } else {
-    targetElement.focus();
-  }
-};
-FastClick.attach(document.body);
+//fastClick
+import "./assets/js/fastClick.js";
 
 //调试工具
 // import vConsole from "vconsole";
 // let vconsole = new vConsole();
 
-
-
-
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount("#app");

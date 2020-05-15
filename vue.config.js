@@ -1,3 +1,5 @@
+const { BundleAnalyzerPlugin  } = require('webpack-bundle-analyzer')
+
 module.exports = {
   //基础路径
   publicPath: './',
@@ -32,6 +34,12 @@ module.exports = {
   },
   //是否开启eslint
   lintOnSave: false,
+  //
+  configureWebpack: (config) => {
+    if (process.env.NODE_ENV === 'production') {
+      config.plugins.push(new BundleAnalyzerPlugin())
+    }
+  }
   // chainWebpack: config => {
   //   // 移除 prefetch 插件
   //   config.plugins.delete('prefetch')
